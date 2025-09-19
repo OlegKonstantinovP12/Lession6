@@ -8,27 +8,6 @@
 import Foundation
 
 /*
- 5 - Уведомления
- Создай enum Notification:
-
- .message(user: String, text: String)
- .friendRequest(user: String)
- .system(message: String)
-
- Напиши функцию handle(notification:), которая выводит разные сообщения в зависимости от типа уведомления.
-
- 6 - Результат загрузки файла
- Создай enum DownloadResult:
-
- .success(filePath: String, size: Int)
- .failure(error: String)
-
- Используй switch, чтобы:
- При успехе вывести путь и размер
- При ошибке — сообщение об ошибке.
- */
-
-/*
  1 - Направления движения (без rawValue)
  Создай enum Direction с вариантами .north, .south, .east, .west.
 
@@ -175,3 +154,35 @@ showEvent(.logout(user: "Michael"))
 showEvent(.error(message: "Not connection"))
 showEvent(.purchase(user: "Michael", amount: 500))
 showEvent(.purchase(user: "Michael", amount: 1001))
+
+/*
+ 5 - Уведомления
+ Создай enum Notification:
+
+ .message(user: String, text: String)
+ .friendRequest(user: String)
+ .system(message: String)
+
+ Напиши функцию handle(notification:), которая выводит разные сообщения в зависимости от типа уведомления.
+ */
+
+enum Notification {
+    case message(user: String, text: String)
+    case friendRequest(user: String)
+    case system(message: String)
+}
+
+func handle(notification: Notification) {
+    switch notification {
+    case .message(let user, let text):
+        print("""
+              You have a new message from: \(user).
+              \(text)
+              """)
+    case .friendRequest(let user):
+        print("You have a new friend request from \(user)")
+    case .system(let message):
+        print(message)
+    }
+}
+
