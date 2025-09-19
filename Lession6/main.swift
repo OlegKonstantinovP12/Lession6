@@ -113,4 +113,34 @@ choice("Ultra")
  Напиши функцию process(payment:), которая по-разному обрабатывает оплату (например, разные сообщения в консоль).
  */
 
+enum Payment {
+    case cash(Double)
+    case card(number: String, amount: Double)
+    case crypto(wallet: String, amount: Double)
+}
 
+func process(payment: Payment) {
+    switch payment {
+    case .cash(let cash):
+        print("Оплата наличными: \(cash)")
+    case .card(let number, let amount):
+        let charOfNumbers = number.enumerated().map { (index, char) -> Character in
+            if char == " " {
+                return char
+            }
+            if index >= number.count - 4 {
+                return char
+            }
+            return "*"
+        }
+
+        print("Оплата по карте: \(String(charOfNumbers)). Остаток на счету: \(amount)")
+    case .crypto(let wallet, let amount):
+        print("Произведена оплата крипто-кошельком: \(wallet). Остаток на счету: \(amount)")
+    }
+    
+}
+
+process(payment: .cash(1234))
+process(payment: .card(number: "1234 5678 9012 3456", amount: 1000))
+process(payment: .crypto(wallet: "QWv3409vnqjk14", amount: 5000.134))
