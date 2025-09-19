@@ -204,9 +204,10 @@ handle(notification: .system(message: "New version! It's time to upgrade"))
 
 enum DownloadResult {
     case success(filePath: String, size: Int)
-    case failure(error: Error)
+    case failure(error: MessageError)
+    
 }
-enum Error: String {
+enum MessageError: String {
     case folder = "Cannot find filePath"
     case connection = "The connection with the server was lost."
     case file = "Cannot find file."
@@ -222,9 +223,9 @@ func handle(file: DownloadResult) {
             Размер: \(size)
             """)
     case .failure(let error):
-        print("Ошибка загрузки: \(error)")
+        print("Ошибка загрузки. \(error.rawValue)")
     }
 }
 
 handle(file: .success(filePath: "/Users/oleg/Downloads/img.png", size: 4096))
-handle(file: .failure(error: .connection))
+handle(file: .failure(error: .spaceDisk))
