@@ -186,6 +186,10 @@ func handle(notification: Notification) {
     }
 }
 
+handle(notification: .message(user: "Michael", text: "Hello, World!"))
+handle(notification: .friendRequest(user: "Dwight"))
+handle(notification: .system(message: "New version! It's time to upgrade"))
+
 /*
  6 - Результат загрузки файла
  Создай enum DownloadResult:
@@ -200,7 +204,13 @@ func handle(notification: Notification) {
 
 enum DownloadResult {
     case success(filePath: String, size: Int)
-    case failure(error: String)
+    case failure(error: Error)
+}
+enum Error: String {
+    case folder = "Cannot find filePath"
+    case connection = "The connection with the server was lost."
+    case file = "Cannot find file."
+    case spaceDisk = "Your disk does not have enough free space."
 }
 
 func handle(file: DownloadResult) {
@@ -215,3 +225,6 @@ func handle(file: DownloadResult) {
         print("Ошибка загрузки: \(error)")
     }
 }
+
+handle(file: .success(filePath: "/Users/oleg/Downloads/img.png", size: 4096))
+handle(file: .failure(error: .connection))
