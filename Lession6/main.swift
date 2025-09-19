@@ -8,18 +8,6 @@
 import Foundation
 
 /*
- 4 - События в приложении
- Создай enum AppEvent:
-
- .login(user: String)
- .logout(user: String)
- .error(message: String)
- .purchase(user: String, amount: Double)
-
- Используй switch, чтобы:
- Вывести лог для каждого события
- Если .purchase больше 1000 — вывести особое сообщение "Big spender!" (использовать where)
-
  5 - Уведомления
  Создай enum Notification:
 
@@ -122,7 +110,7 @@ enum Payment {
 func process(payment: Payment) {
     switch payment {
     case .cash(let cash):
-        print("Оплата наличными: \(cash)")
+        print("Оплата наличными: \(cash)₽")
     case .card(let number, let amount):
         let charOfNumbers = number.enumerated().map { (index, char) -> Character in
             if char == " " {
@@ -134,9 +122,9 @@ func process(payment: Payment) {
             return "*"
         }
 
-        print("Оплата по карте: \(String(charOfNumbers)). Остаток на счету: \(amount)")
+        print("Оплата по карте: \(String(charOfNumbers)). Остаток на счету: \(amount)₽")
     case .crypto(let wallet, let amount):
-        print("Произведена оплата крипто-кошельком: \(wallet). Остаток на счету: \(amount)")
+        print("Произведена оплата крипто-кошельком: \(wallet). Остаток на счету: \(amount)₽")
     }
     
 }
@@ -144,3 +132,46 @@ func process(payment: Payment) {
 process(payment: .cash(1234))
 process(payment: .card(number: "1234 5678 9012 3456", amount: 1000))
 process(payment: .crypto(wallet: "QWv3409vnqjk14", amount: 5000.134))
+
+
+/*
+ 4 - События в приложении
+ Создай enum AppEvent:
+
+ .login(user: String)
+ .logout(user: String)
+ .error(message: String)
+ .purchase(user: String, amount: Double)
+
+ Используй switch, чтобы:
+ Вывести лог для каждого события
+ Если .purchase больше 1000 — вывести особое сообщение "Big spender!" (использовать where)
+ */
+
+enum AppEvent {
+    case login(user: String)
+    case logout(user: String)
+    case error(message: String)
+    case purchase(user: String, amount: Double)
+}
+
+func showEvent(_ event: AppEvent) {
+    switch event {
+    case .login(let user):
+        print("Welcome back, \(user)!")
+    case .logout(let user):
+        print("I hope to see you again soon \(user)")
+    case .error(let message):
+        print("Something went wrong... Error: \(message)")
+    case .purchase(_, let amount) where amount > 1000:
+        print("Big spender!")
+    case .purchase(let user, let amount):
+        print("Thanks you, \(user)! Your purchase, \(amount)₽ was accepted")
+    }
+}
+
+showEvent(.login(user: "Michael"))
+showEvent(.logout(user: "Michael"))
+showEvent(.error(message: "Not connection"))
+showEvent(.purchase(user: "Michael", amount: 500))
+showEvent(.purchase(user: "Michael", amount: 1001))
