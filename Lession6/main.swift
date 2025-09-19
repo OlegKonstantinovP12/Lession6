@@ -8,22 +8,6 @@
 import Foundation
 
 /*
- 2 - Игровые уровни
- Создай enum GameLevel: String с вариантами "Easy", "Medium", "Hard".
-
- Напиши функцию, которая принимает строку, преобразует её в enum и выводит сообщение.
-
- Если строка не соответствует ни одному уровню, выводи "Unknown level".
-
- 3 - Платёжная система
- Создай enum Payment, где:
-
- .cash(Double)
- .card(number: String, amount: Double)
- .crypto(wallet: String, amount: Double)
-
- Напиши функцию process(payment:), которая по-разному обрабатывает оплату (например, разные сообщения в консоль).
-
  4 - События в приложении
  Создай enum AppEvent:
 
@@ -89,3 +73,44 @@ move(direction: .north)
 move(direction: .south)
 move(direction: .east)
 move(direction: .west)
+
+/*
+ 2 - Игровые уровни
+ Создай enum GameLevel: String с вариантами "Easy", "Medium", "Hard".
+
+ Напиши функцию, которая принимает строку, преобразует её в enum и выводит сообщение.
+
+ Если строка не соответствует ни одному уровню, выводи "Unknown level".
+ */
+
+enum GameLevel: String {
+    case easy = "Easy"
+    case medium = "Medium"
+    case hard = "Hard"
+    
+}
+
+func choice(_ level: String) {
+    if let choiceLevel = GameLevel(rawValue: level) {
+        print("Level selected: \(choiceLevel.rawValue)")
+    } else {
+        print("Unknown level")
+    }
+}
+
+choice("Easy")
+choice("Medium")
+choice("Hard")
+choice("Ultra")
+/*
+ 3 - Платёжная система
+ Создай enum Payment, где:
+
+ .cash(Double)
+ .card(number: String, amount: Double)
+ .crypto(wallet: String, amount: Double)
+
+ Напиши функцию process(payment:), которая по-разному обрабатывает оплату (например, разные сообщения в консоль).
+ */
+
+
