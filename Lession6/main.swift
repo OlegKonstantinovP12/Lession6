@@ -186,3 +186,32 @@ func handle(notification: Notification) {
     }
 }
 
+/*
+ 6 - Результат загрузки файла
+ Создай enum DownloadResult:
+
+ .success(filePath: String, size: Int)
+ .failure(error: String)
+
+ Используй switch, чтобы:
+ При успехе вывести путь и размер
+ При ошибке — сообщение об ошибке.
+ */
+
+enum DownloadResult {
+    case success(filePath: String, size: Int)
+    case failure(error: String)
+}
+
+func handle(file: DownloadResult) {
+    switch file {
+    case .success(let filePath, let size):
+        print("""
+            Файл успешно загружен.
+            Путь: \(filePath).
+            Размер: \(size)
+            """)
+    case .failure(let error):
+        print("Ошибка загрузки: \(error)")
+    }
+}
